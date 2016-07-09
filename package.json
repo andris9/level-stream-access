@@ -1,0 +1,36 @@
+{
+  "name": "level-stream-access",
+  "version": "1.0.0",
+  "description": "Write and read stream values from leveldb",
+  "main": "lib/level-stream-access.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "grunt mochaTest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/andris9/level-stream-access.git"
+  },
+  "keywords": [
+    "level",
+    "stream"
+  ],
+  "author": "Andris Reinman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andris9/level-stream-access/issues"
+  },
+  "homepage": "https://github.com/andris9/level-stream-access#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-eslint": "^19.0.0",
+    "grunt-mocha-test": "^0.12.7",
+    "levelup": "^1.3.2",
+    "memdown": "^1.2.0",
+    "mocha": "^2.5.3"
+  }
+}
