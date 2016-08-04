@@ -1,6 +1,6 @@
 {
   "name": "level-stream-access",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Write and read stream values from leveldb",
   "main": "lib/level-stream-access.js",
   "directories": {
@@ -31,6 +31,9 @@
     "grunt-mocha-test": "^0.12.7",
     "levelup": "^1.3.2",
     "memdown": "^1.2.0",
-    "mocha": "^2.5.3"
+    "mocha": "^3.0.1"
+  },
+  "dependencies": {
+    "seq-index": "^1.0.0"
   }
 }
