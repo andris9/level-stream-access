@@ -80,7 +80,6 @@ describe('level-stream-access tests', function () {
                         let md5 = crypto.createHash('md5');
                         let readstream = levelStream.createReadStream('test1');
                         readstream.on('data', function (chunk) {
-                            process.stdout.write(chunk);
                             md5.update(chunk);
                         });
                         readstream.on('end', function () {
