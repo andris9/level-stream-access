@@ -66,6 +66,35 @@ fs.createReadStream('file.txt').
     pipe(process.stdout);
 ```
 
+## prepend()
+
+Prepend data to the beginning of the stored stream. This is mostly useful if the stream is an email
+message and you want to add new headers to it
+
+```javascript
+levelStream.prepend(keyname, value, callback);
+```
+
+Where
+
+- **keyname** is the stream key to prepend data to
+- **value** is a Buffer or string data to be prepended to the stream
+- **callback** is the function to run once data is prepended
+
+**Example**
+
+```javascript
+levelStream.delete('keyname', 'new first line\n' function(err, prepended){
+    if(err){
+        console.log(err);
+    }else if(!prepended){
+        console.log('Stream was not found');
+    }else{
+        console.log('data prepended to the stream');
+    }
+});
+```
+
 ## delete()
 
 Delete streamed data from leveldb

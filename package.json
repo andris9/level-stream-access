@@ -1,6 +1,6 @@
 {
   "name": "level-stream-access",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Write and read stream values from leveldb",
   "main": "lib/level-stream-access.js",
   "directories": {

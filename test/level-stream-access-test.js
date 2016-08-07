@@ -59,4 +59,38 @@ describe('level-stream-access tests', function () {
             });
         });
     });
+
+    it('should write and prepend data to db using write/read', function (done) {
+        let instream = fs.createReadStream(__dirname + '/fixtures/alice.txt');
+        let writestream = levelStream.createWriteStream('test1');
+        writestream.on('finish', function () {
+
+            levelStream.prepend('test1', 'kolmas rida\n', (err, success) => {
+                expect(err).to.not.exist;
+                expect(success).to.be.true;
+
+                levelStream.prepend('test1', 'teine rida\n', (err, success) => {
+                    expect(err).to.not.exist;
+                    expect(success).to.be.true;
+
+                    levelStream.prepend('test1', 'esimene rida\n', (err, success) => {
+                        expect(err).to.not.exist;
+                        expect(success).to.be.true;
+
+                        let md5 = crypto.createHash('md5');
+                        let readstream = levelStream.createReadStream('test1');
+                        readstream.on('data', function (chunk) {
+                            process.stdout.write(chunk);
+                            md5.update(chunk);
+                        });
+                        readstream.on('end', function () {
+                            expect(md5.digest('hex')).to.equal('027d88cb351db81d6fcd2b5ee50bddf2');
+                            done();
+                        });
+                    });
+                });
+            });
+        });
+        instream.pipe(writestream);
+    });
 });
