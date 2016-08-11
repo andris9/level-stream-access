@@ -48,14 +48,44 @@ describe('level-stream-access tests', function () {
         instream.pipe(storestream);
     });
 
-    it('should delete existing keys', function (done) {
-        levelStream.delete('test2', function (err, deleted) {
+    it('should set and get metadata', function (done) {
+        let meta = {
+            a: 1,
+            b: [1, 2, 3]
+        };
+        levelStream.setMeta('non-existant-key', meta, (err, success) => {
             expect(err).to.not.exist;
-            expect(deleted).to.be.gt(0);
+            expect(success).to.be.false;
+            levelStream.setMeta('test2', meta, (err, success) => {
+                expect(err).to.not.exist;
+                expect(success).to.be.true;
+                levelStream.getMeta('test2', (err, stored) => {
+                    expect(err).to.not.exist;
+                    expect(meta === stored).to.be.false;
+                    expect(meta.b).to.be.deep.equal(stored.b);
+                    expect(stored.created).to.exist;
+                    done();
+                });
+            });
+        });
+    });
+
+    it('should delete existing keys', function (done) {
+        levelStream.getMeta('test2', (err, meta) => {
+            expect(err).to.not.exist;
+            expect(meta).to.exist;
             levelStream.delete('test2', function (err, deleted) {
                 expect(err).to.not.exist;
-                expect(deleted).to.equal(0);
-                done();
+                expect(deleted).to.be.gt(0);
+                levelStream.getMeta('test2', (err, meta) => {
+                    expect(err).to.not.exist;
+                    expect(meta).to.be.false;
+                    levelStream.delete('test2', function (err, deleted) {
+                        expect(err).to.not.exist;
+                        expect(deleted).to.equal(0);
+                        done();
+                    });
+                });
             });
         });
     });
